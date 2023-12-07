@@ -8,7 +8,8 @@ import {
   Post,
   Query,
   ParseIntPipe,
-  ValidationPipe
+  ValidationPipe,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,15 +26,6 @@ export class UsersController {
     return this.usersService.findAll(role);
   }
 
-  // The dynamic routes must be always in the last as it will consider the static routes as values instead of routes
-  // For example:
-  /* 
-    @Get('interns')
-    findAllInterns() {
-      return []
-    }
-  */
-
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
@@ -44,7 +36,6 @@ export class UsersController {
     @Body(ValidationPipe)
     createUserDto: CreateUserDto,
   ) {
-    // return this.usersService.create(user);
     return this.usersService.create(createUserDto);
   }
 
