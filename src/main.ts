@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Global middleware, to access in all the routes with no exception.
   // app.use(LoggerMiddleware);
+  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

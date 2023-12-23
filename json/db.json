@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "userName": "Sharath Lingam",
+      "email": "sharath@gmail.com",
+      "password": "123456789",
+      "id": 1,
+      "jwt_access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlNoYXJhdGggTGluZ2FtIiwiZW1haWwiOiJzaGFyYXRoQGdtYWlsLmNvbSIsImlhdCI6MTcwMzMxNTEwOSwiZXhwIjoxNzAzNDAxNTA5fQ.dXUQUfEFGhvtsUGUo-RCs6UfREwlUIPEBpQPU7koy_I"
+    },
+    {
+      "userName": "sharathlingam_s",
+      "email": "sharath123@gmail.com",
+      "password": "123456789",
+      "id": 2
+    },
+    {
+      "userName": "sharathlingam_s",
+      "email": "sharath1234@gmail.com",
+      "password": "123456789",
+      "id": 3,
+      "jwt_access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYXJhdGhsaW5nYW1fcyIsImVtYWlsIjoic2hhcmF0aDEyMzRAZ21haWwuY29tIiwiaWF0IjoxNzAzMzE0NDk3LCJleHAiOjE3MDMzMjE2OTd9.QXDdv2tNS3QUIXB5_dwmUurfTNeKO-ILmKRYRNDNpJc"
+    }
+  ],
+  "user-data": [
+    {
+      "userName": "Sharath Lingam",
+      "email": "sharath@gmail.com",
+      "data": [],
+      "profile": {
+        "name": "Sharath Lingam"
+      },
+      "id": 1
+    },
+    {
+      "userName": "sharathlingam_s",
+      "email": "sharath123@gmail.com",
+      "data": [],
+      "profile": {
+        "name": "sharathlingam_s"
+      },
+      "id": 2
+    },
+    {
+      "userName": "sharathlingam_s",
+      "email": "sharath1234@gmail.com",
+      "data": [],
+      "profile": {
+        "name": "sharathlingam_s"
+      },
+      "id": 3
+    }
+  ]
+}
