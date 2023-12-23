@@ -21,7 +21,7 @@ $ sudo npm install g json-server
 
 ```bash
 # watch json data
-$ json-server --watch ./json/db.json -p 5000
+$ npm run start:server
 
 # watch nest rest api
 $ npm run start:dev
