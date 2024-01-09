@@ -30,7 +30,7 @@ export class SignUpAuthDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(2, { message: 'Must contain atleast 2 characters' })
+  @MinLength(2, { message: 'Username Must contain atleast 2 characters' })
   userName: string;
 }
 

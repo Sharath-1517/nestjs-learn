@@ -19,6 +19,12 @@
       "password": "123456789",
       "id": 3,
       "jwt_access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InNoYXJhdGhsaW5nYW1fcyIsImVtYWlsIjoic2hhcmF0aDEyMzRAZ21haWwuY29tIiwiaWF0IjoxNzAzMzE0NDk3LCJleHAiOjE3MDMzMjE2OTd9.QXDdv2tNS3QUIXB5_dwmUurfTNeKO-ILmKRYRNDNpJc"
+    },
+    {
+      "email": "sharath1@gmail.com",
+      "password": "123456789",
+      "userName": "Sharath",
+      "id": 4
     }
   ],
   "user-data": [
@@ -48,6 +54,15 @@
         "name": "sharathlingam_s"
       },
       "id": 3
+    },
+    {
+      "userName": "Sharath",
+      "email": "sharath1@gmail.com",
+      "data": [],
+      "profile": {
+        "name": "Sharath"
+      },
+      "id": 4
     }
   ]
 }

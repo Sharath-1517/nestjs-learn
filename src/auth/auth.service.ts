@@ -1,18 +1,16 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { EmailAuth, LoginAuthDto, SignUpAuthDto } from './dto/auth.dto';
+import { LoginAuthDto, SignUpAuthDto } from './dto/auth.dto';
 import axios from 'axios';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly jwt: JwtService) {}
 
-  async userExistCheck(
-    type: 'LOGIN' | 'SIGNUP',
-    loginAuthDto?: LoginAuthDto,
-    signUpAuthDto?: SignUpAuthDto,
-  ) {
+  async login(loginAuthDto: LoginAuthDto) {
+    let response;
+
     const fetchedData = await axios.get(
       `${process.env.NEST_DATABASE_URL}/users`,
     );
@@ -20,47 +18,19 @@ export class AuthService {
 
     let validationData;
 
-    if (type === 'LOGIN') {
-      console.log(data);
-      if (data?.length > 0) {
-        validationData = data?.filter(
-          (datum) =>
-            datum.email === loginAuthDto.email &&
-            datum.password === loginAuthDto.password,
-        );
-        if (validationData.length === 1) return validationData[0];
-        return false;
-      }
-      return false;
+    if (data?.length > 0) {
+      validationData = data?.filter(
+        (datum) =>
+          datum.email === loginAuthDto.email &&
+          datum.password === loginAuthDto.password,
+      );
+      if (validationData.length === 1) return validationData[0];
+      response = false;
     }
-    if (type === 'SIGNUP') {
-      if (data?.length > 0) {
-        validationData = data?.filter(
-          (datum) => datum.email === signUpAuthDto.email,
-        );
-        if (validationData.length > 0) return false;
-        else return true;
-      }
-      return true;
-    }
-  }
-
-  async login(loginAuthDto: LoginAuthDto) {
-    // if (email.email.length > 0) {
-    //   const response = await axios.get(
-    //     `${process.env.NEST_DATABASE_URL}/users?email=${email.email}`,
-    //   );
-    //   return response.data;
-    // }
-
-    let response;
-
-    await this.userExistCheck('LOGIN', loginAuthDto, null).then(
-      (res) => (response = res),
-    );
+    response = false;
 
     if (response) {
-      const { id, email } = response;
+      const { id } = response;
 
       const payLoad = {
         userName: response.userName,
@@ -89,39 +59,48 @@ export class AuthService {
   }
 
   async signup(signUpAuthDto: SignUpAuthDto) {
-    let response;
-    await this.userExistCheck('SIGNUP', null, signUpAuthDto).then(
-      (res) => (response = res),
+    const fetchedData = await axios.get(
+      `${process.env.NEST_DATABASE_URL}/users`,
+    );
+    const { data } = fetchedData;
+
+    let validationData;
+
+    if (data?.length > 0) {
+      validationData = data.filter(
+        (datum) => datum.email === signUpAuthDto.email,
+      );
+      console.log(validationData);
+      if (validationData?.length > 0) {
+        throw new BadRequestException('Email already registered!');
+      } else {
+      }
+    }
+
+    // Creating user validation data
+    const updatedData = await axios.post(
+      `${process.env.NEST_DATABASE_URL}/users`,
+      signUpAuthDto,
     );
 
-    if (response === false)
-      throw new BadRequestException('Email already registered!');
-    else if (response === true) {
-      // Creating user validation data
-      const updatedData = await axios.post(
-        `${process.env.NEST_DATABASE_URL}/users`,
-        signUpAuthDto,
-      );
+    const userDatabaseEntry = {
+      userName: signUpAuthDto.userName,
+      email: signUpAuthDto.email,
+      data: [],
+      profile: {
+        name: signUpAuthDto.userName,
+      },
+    };
 
-      const userDatabaseEntry = {
-        userName: signUpAuthDto.userName,
-        email: signUpAuthDto.email,
-        data: [],
-        profile: {
-          name: signUpAuthDto.userName,
-        },
-      };
+    await axios.post(
+      `${process.env.NEST_DATABASE_URL}/user-data`,
+      userDatabaseEntry,
+    );
 
-      await axios.post(
-        `${process.env.NEST_DATABASE_URL}/user-data`,
-        userDatabaseEntry,
-      );
-
-      return {
-        statusCode: updatedData.status,
-        message: 'Created Account successfully',
-        dataStatus: 'Created',
-      };
-    }
+    return {
+      statusCode: updatedData.status,
+      message: 'Created Account successfully',
+      dataStatus: 'Created',
+    };
   }
 }
